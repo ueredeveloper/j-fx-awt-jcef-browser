@@ -1,0 +1,29 @@
+# Ignorar o bundle JCEF e a biblioteca
+/jcef_bundle/
+/jcef_lib/
+*.dylib
+*.dll
+*.so
+*.pdb
+
+# Ignorar arquivos temporários, de compilação e de configuração
+*.class
+*.log
+*.bak
+*.swp
+
+# Ignorar pastas de compilação
+/target/
+/bin/
+/out/
+
+/.idea/
+/.vscode/
+/.settings/
+
+# Ignorar arquivos do Maven e Gradle
+*.iml
+*.jar
+*.war
+*.ear
+*.zip
