@@ -45,11 +45,11 @@ public class SideBarController {
 
 	@FXML
 	private void initialize() {
-		btnDocument.setOnAction(event -> {
+	/*	btnDocument.setOnAction(event -> {
 			System.out.println("Open button clicked!");
-			openDocumentView(!contentPanel.isVisible());
+			//openDocumentView(!contentPanel.isVisible());
 
-		});
+		});*/
 
 	}
 
@@ -58,7 +58,7 @@ public class SideBarController {
 
 		if (isVisible) {
 			System.out.println(isVisible);
-			loadDocumentView(contentPanel);
+			//loadDocumentView(contentPanel);
 
 			new Animations().animatePanel(contentPanel);
 
@@ -68,7 +68,7 @@ public class SideBarController {
 
 	AtomicReference<AnchorPane> rootRef = new AtomicReference<>();
 
-	private void loadDocumentView(Panel contentPanel) {
+	/*private void loadDocumentView(Panel contentPanel) {
 
 		// Verifica se já existe um JPanel no contentPanel
 		for (Component comp : contentPanel.getComponents()) {
@@ -141,6 +141,6 @@ public class SideBarController {
 		contentPanel.revalidate();
 		contentPanel.repaint();
 
-	}
+	}*/
 
 }

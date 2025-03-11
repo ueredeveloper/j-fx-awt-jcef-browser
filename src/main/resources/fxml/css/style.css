@@ -1,0 +1,64 @@
+/* Variáveis de cores */
+.root {
+    -fx-primary-color: #0047AB;    /* Azul escuro */
+    -fx-secondary-color: #00C4FF;  /* Azul claro */
+    -fx-background-overlay: rgba(0, 71, 171, 0.3);
+    -fx-white-transparent: rgba(255, 255, 255, 0.9);
+    -fx-white-semi: rgba(255, 255, 255, 0.7);
+}
+
+/* Estilo do container principal */
+#root {
+    -fx-background-color: -fx-background-overlay;
+}
+
+/* Estilo da caixa de login */
+.login-box {
+    -fx-background-color: -fx-white-transparent;
+    -fx-padding: 40;
+    -fx-border-radius: 15;
+    -fx-background-radius: 15;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 20, 0, 0, 0);
+    -fx-border-color: rgba(255,255,255,0.3);
+    -fx-border-width: 2;
+    -fx-max-width: 400;
+}
+
+/* Estilo do título */
+.title {
+    -fx-font-size: 28;
+    -fx-text-fill: -fx-primary-color;
+    -fx-font-weight: bold;
+    -fx-letter-spacing: 2;
+}
+
+/* Estilo do campo de texto */
+.input-field {
+    -fx-background-color: -fx-white-semi;
+    -fx-border-color: transparent transparent -fx-primary-color transparent;
+    -fx-border-width: 0 0 2 0;
+    -fx-font-size: 16;
+    -fx-text-fill: -fx-primary-color;
+    -fx-pref-width: 300;
+    -fx-background-radius: 5 5 0 0;
+}
+
+.input-field:focused {
+    -fx-background-color: white;
+    -fx-border-color: transparent transparent -fx-secondary-color transparent;
+}
+
+/* Estilo do botão */
+.btn {
+    -fx-background-color: linear-gradient(to right, -fx-primary-color, -fx-secondary-color);
+    -fx-text-fill: white;
+    -fx-font-size: 16;
+    -fx-pref-width: 300;
+    -fx-background-radius: 25;
+    -fx-cursor: hand;
+}
+
+.btn:hover {
+    -fx-translate-y: -2;
+    -fx-effect: dropshadow(gaussian, derive(-fx-primary-color, 40%), 15, 0, 0, 5);
+}

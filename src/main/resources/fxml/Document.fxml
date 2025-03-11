@@ -1,21 +1,171 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXTextField?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane fx:id="root" prefHeight="600.0" prefWidth="800.0" stylesheets="@css/document.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <JFXTextField layoutX="14.0" layoutY="34.0" prefHeight="25.0" prefWidth="500.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="90.0" />
-      <Button layoutX="534.0" layoutY="34.0" mnemonicParsing="false" text="Button" AnchorPane.rightAnchor="10.0" />
-      <ScrollPane layoutX="30.0" layoutY="77.0" prefHeight="299.0" prefWidth="554.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="90.0">
-        <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1800.0" prefWidth="1800.0">
+      <VBox fx:id="documentBox" alignment="CENTER" spacing="20" styleClass="document-box">
+         <children>
+            <Label styleClass="title" text="Cadastro de Documento" />
+            <GridPane alignment="CENTER" hgap="10" maxHeight="200.0" vgap="15" VBox.vgrow="ALWAYS">
                <children>
-                  <JFXTextField layoutX="237.0" layoutY="129.0" AnchorPane.bottomAnchor="100.0" />
-               </children></AnchorPane>
-        </content>
-      </ScrollPane>
+                  <!-- Type of Document -->
+                  <Label prefWidth="140.0" styleClass="label" text="Tipo de Documento" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                  <ComboBox fx:id="cbDocumentType" prefWidth="240.0" styleClass="input-field" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="0" />
+
+                  <!-- Number -->
+                  <Label prefWidth="180.0" styleClass="label" text="Número" GridPane.columnIndex="4" GridPane.rowIndex="0" />
+                  <TextField fx:id="tfNumber" promptText="Digite o número" styleClass="input-field" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.rowIndex="0" />
+
+                  <!-- Number SEI -->
+                  <Label prefWidth="140.0" styleClass="label" text="Número SEI" GridPane.columnIndex="8" GridPane.rowIndex="0" />
+                  <TextField fx:id="tfNumberSei" promptText="Digite o número SEI" styleClass="input-field" GridPane.columnIndex="9" GridPane.columnSpan="2" GridPane.rowIndex="0" />
+
+                  <!-- Address -->
+                  <Label prefWidth="140.0" styleClass="label" text="Endereço" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                  <ComboBox fx:id="cbAddress" prefWidth="240.0" styleClass="input-field" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="1" />
+                  <Button fx:id="btnAddress" styleClass="icon-btn" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                     <graphic>
+                        <FontAwesomeIconView fill="#FFFFFF" glyphName="HOME" size="15" />
+                     </graphic>
+                  </Button>
+
+                  <!-- Latitude -->
+                  <Label prefWidth="180.0" styleClass="label" text="Latitude" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+                  <TextField fx:id="tfLatitude" promptText="Digite a latitude" styleClass="input-field" GridPane.columnIndex="6" GridPane.columnSpan="2" GridPane.rowIndex="1" />
+
+                  <!-- Longitude -->
+                  <Label prefWidth="140.0" styleClass="label" text="Longitude" GridPane.columnIndex="8" GridPane.rowIndex="1" />
+                  <TextField fx:id="tfLongitude" promptText="Digite a longitude" styleClass="input-field" GridPane.columnIndex="9" GridPane.columnSpan="2" GridPane.rowIndex="1" />
+                  <Button fx:id="btnInterference" styleClass="icon-btn" GridPane.columnIndex="11" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                     <graphic>
+                        <FontAwesomeIconView fill="#FFFFFF" glyphName="MAP_MARKER" size="15" />
+                     </graphic>
+                  </Button>
+
+                  <!-- User -->
+                  <Label prefWidth="140.0" styleClass="label" text="Usuário" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                  <ComboBox fx:id="cbUser" prefWidth="240.0" styleClass="input-field" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2" />
+                  <Button fx:id="btnUser" styleClass="icon-btn" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                     <graphic>
+                        <FontAwesomeIconView fill="#FFFFFF" glyphName="USER" size="15" />
+                     </graphic>
+                  </Button>
+
+                  <!-- Process -->
+                  <Label prefWidth="180.0" styleClass="label" text="Processo" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                  <ComboBox fx:id="cbProcess" prefWidth="240.0" styleClass="input-field" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.rowIndex="2" />
+                  <Button fx:id="btnProcess" styleClass="icon-btn" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                     <graphic>
+                        <FontAwesomeIconView fill="#FFFFFF" glyphName="COGS" size="15" />
+                     </graphic>
+                  </Button>
+
+                  <!-- Attachment -->
+                  <Label prefWidth="140.0" styleClass="label" text="Processo Principal" GridPane.columnIndex="8" GridPane.rowIndex="2" />
+                  <ComboBox fx:id="cbAttachment" prefWidth="240.0" styleClass="input-field" GridPane.columnIndex="9" GridPane.columnSpan="2" GridPane.rowIndex="2" />
+                  <Button fx:id="btnAttachment" styleClass="icon-btn" GridPane.columnIndex="11" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                     <graphic>
+                        <FontAwesomeIconView fill="#FFFFFF" glyphName="PAPERCLIP" size="15" />
+                     </graphic>
+                  </Button>
+               </children>
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="40.0" prefWidth="140.0" />
+                  <ColumnConstraints hgrow="ALWAYS" minWidth="40.0" prefWidth="120.0" />
+                  <ColumnConstraints hgrow="ALWAYS" minWidth="40.0" prefWidth="120.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="40.0" minWidth="40.0" prefWidth="40.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="40.0" prefWidth="140.0" />
+                  <ColumnConstraints hgrow="ALWAYS" minWidth="40.0" prefWidth="120.0" />
+                  <ColumnConstraints hgrow="ALWAYS" minWidth="40.0" prefWidth="120.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="40.0" minWidth="40.0" prefWidth="40.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="40.0" prefWidth="140.0" />
+                  <ColumnConstraints hgrow="ALWAYS" minWidth="40.0" prefWidth="120.0" />
+                  <ColumnConstraints hgrow="ALWAYS" minWidth="40.0" prefWidth="120.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="40.0" minWidth="40.0" prefWidth="40.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints vgrow="SOMETIMES" />
+                  <RowConstraints vgrow="SOMETIMES" />
+                  <RowConstraints vgrow="SOMETIMES" />
+               </rowConstraints>
+            </GridPane>
+            <GridPane>
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="140.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="140.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="140.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="140.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Button fx:id="btnNew" styleClass="btn" text="Novo" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                     <graphic>
+                        <FontAwesomeIconView fill="#FFFFFF" glyphName="PLUS" size="20" />
+                     </graphic>
+                  </Button>
+                  <Button fx:id="btnEdit" styleClass="btn-edit" text="Editar" GridPane.columnIndex="5" GridPane.halignment="CENTER">
+                     <graphic>
+                        <FontAwesomeIconView fill="#FFFFFF" glyphName="PENCIL" size="20" />
+                     </graphic>
+                  </Button>
+                  <Button fx:id="btnDelete" styleClass="btn-delete" text="Deletar" GridPane.columnIndex="7" GridPane.halignment="CENTER">
+                     <graphic>
+                        <FontAwesomeIconView fill="#FFFFFF" glyphName="TRASH" size="20" />
+                     </graphic>
+                  </Button>
+                  <Button fx:id="btnSave" styleClass="btn" text="Salvar" GridPane.columnIndex="3">
+                     <graphic>
+                        <FontAwesomeIconView fill="#FFFFFF" glyphName="SAVE" size="20" />
+                     </graphic>
+                  </Button>
+               </children>
+            </GridPane>
+            <TableView fx:id="tableView" prefHeight="240.0">
+               <columns>
+                  <TableColumn prefWidth="140.0" text="Tipo" />
+                  <TableColumn prefWidth="140.0" text="Número" />
+                  <TableColumn prefWidth="140.0" text="SEI" />
+                  <TableColumn prefWidth="140.0" text="Processo" />
+                  <TableColumn prefWidth="800.0" text="Endereço" />
+               </columns>
+            </TableView>
+            <GridPane>
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="40.0" minWidth="10.0" prefWidth="10.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Button fx:id="btnViewDocument" styleClass="icon-btn" GridPane.columnIndex="2" GridPane.halignment="CENTER">
+                     <graphic>
+                        <FontAwesomeIconView fill="#FFFFFF" glyphName="EYE" size="15" />
+                     </graphic>
+                  </Button>
+               </children>
+            </GridPane>
+         </children>
+      </VBox>
    </children>
-</AnchorPane>
+</StackPane>

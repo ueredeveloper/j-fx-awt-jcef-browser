@@ -1,0 +1,120 @@
+/* Variáveis de cores */
+.root {
+    -fx-primary-color: #0047AB;    /* Azul escuro */
+    -fx-secondary-color: #00C4FF;  /* Azul claro */
+    -fx-edit-color: #28A745;       /* Verde para edição */
+    -fx-delete-color: #DC3545;     /* Vermelho para deleção */
+    -fx-background-overlay: rgba(0, 71, 171, 0.3);
+    -fx-white-transparent: rgba(255, 255, 255, 0.9);
+    -fx-white-semi: rgba(255, 255, 255, 0.7);
+}
+
+/* Estilo do container principal */
+#root {
+    -fx-background-color: -fx-background-overlay;
+}
+
+/* Estilo da caixa de documento */
+.document-box {
+    -fx-background-color: -fx-white-transparent;
+    -fx-padding: 40;
+    -fx-border-radius: 15;
+    -fx-background-radius: 15;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 20, 0, 0, 0);
+    -fx-border-color: rgba(255,255,255,0.3);
+    -fx-border-width: 2;
+    -fx-max-width: 1800;
+}
+
+/* Estilo do título */
+.title {
+    -fx-font-size: 28;
+    -fx-text-fill: -fx-primary-color;
+    -fx-font-weight: bold;
+    -fx-letter-spacing: 2;
+    -fx-padding: 0 0 20 0;
+}
+
+/* Estilo dos labels */
+.label {
+    -fx-font-size: 14;
+    -fx-text-fill: -fx-primary-color;
+}
+
+/* Estilo dos campos de entrada */
+.input-field {
+    -fx-background-color: -fx-white-semi;
+    -fx-border-color: transparent transparent -fx-primary-color transparent;
+    -fx-border-width: 0 0 2 0;
+    -fx-font-size: 16;
+    -fx-text-fill: -fx-primary-color;
+    -fx-pref-width: 240;
+    -fx-background-radius: 5 5 0 0;
+}
+
+.input-field:focused {
+    -fx-background-color: white;
+    -fx-border-color: transparent transparent -fx-secondary-color transparent;
+}
+
+/* Estilo dos botões padrão */
+.btn {
+    -fx-background-color: linear-gradient(to right, -fx-primary-color, -fx-secondary-color);
+    -fx-text-fill: white;
+    -fx-font-size: 16;
+    -fx-pref-width: 120;
+    -fx-background-radius: 25;
+    -fx-cursor: hand;
+    -fx-padding: 10;
+}
+
+.btn:hover {
+    -fx-background-color: linear-gradient(to right, derive(-fx-primary-color, 20%), derive(-fx-secondary-color, 20%));
+    -fx-effect: dropshadow(gaussian, rgba(0, 71, 171, 0.4), 15, 0, 0, 5);
+}
+
+/* Estilo do botão de edição */
+.btn-edit {
+    -fx-background-color: -fx-edit-color;
+    -fx-text-fill: white;
+    -fx-font-size: 16;
+    -fx-pref-width: 120;
+    -fx-background-radius: 25;
+    -fx-cursor: hand;
+    -fx-padding: 10;
+}
+
+.btn-edit:hover {
+    -fx-background-color: derive(-fx-edit-color, 20%);
+    -fx-effect: dropshadow(gaussian, rgba(40, 167, 69, 0.4), 15, 0, 0, 5);
+}
+
+/* Estilo do botão de deleção */
+.btn-delete {
+    -fx-background-color: -fx-delete-color;
+    -fx-text-fill: white;
+    -fx-font-size: 16;
+    -fx-pref-width: 120;
+    -fx-background-radius: 25;
+    -fx-cursor: hand;
+    -fx-padding: 10;
+}
+
+.btn-delete:hover {
+    -fx-background-color: derive(-fx-delete-color, 20%);
+    -fx-effect: dropshadow(gaussian, rgba(220, 53, 69, 0.4), 15, 0, 0, 5);
+}
+
+/* Estilo dos botões com ícones */
+.icon-btn {
+    -fx-background-color: -fx-primary-color;
+    -fx-pref-width: 30;
+    -fx-pref-height: 30;
+    -fx-background-radius: 20;
+    -fx-cursor: hand;
+}
+
+.icon-btn:hover {
+    -fx-background-color: -fx-secondary-color;
+    -fx-effect: dropshadow(gaussian, rgba(0, 71, 171, 0.4), 10, 0, 0, 2);
+}

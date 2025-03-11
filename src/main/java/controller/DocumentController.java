@@ -1,30 +1,128 @@
 package controller;
 
 import java.awt.Panel;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
-import javafx.animation.TranslateTransition;
+import javax.swing.JPanel;
+
+import javafx.embed.swing.JFXPanel;
 import javafx.fxml.FXML;
-import javafx.scene.layout.AnchorPane;
-import javafx.util.Duration;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 
 public class DocumentController {
 
 	@FXML
-	private AnchorPane anchorPane;
+    private StackPane root;
+
+    @FXML
+    private VBox documentBox;
+
+    @FXML
+    private ComboBox<?> cbDocumentType;
+
+    @FXML
+    private TextField tfNumber;
+
+    @FXML
+    private TextField tfNumberSei;
+
+    @FXML
+    private ComboBox<?> cbAddress;
+
+    @FXML
+    private TextField tfLatitude;
+
+    @FXML
+    private TextField tfLongitude;
+
+    @FXML
+    private Button btnInterference;
+
+    @FXML
+    private ComboBox<?> cbUser;
+
+    @FXML
+    private Button btnUser;
+
+    @FXML
+    private ComboBox<?> cbProcess;
+
+    @FXML
+    private Button btnProcess;
+
+    @FXML
+    private ComboBox<?> cbAttachment;
+
+    @FXML
+    private Button btnAttachment;
+
+    @FXML
+    private Button btnUser1;
+
+    @FXML
+    private Button btnNew;
+
+    @FXML
+    private Button btnEdit;
+
+    @FXML
+    private Button btnDelete;
+
+    @FXML
+    private Button btnSave;
+
+    @FXML
+    private TableView<?> tableView;
+
+    @FXML
+    private Button btnViewDocument;
 
 	Panel contentPanel;
+	JPanel jPanel;
+	JFXPanel jfxPanel;
 
-	public DocumentController(Panel contentPanel) {
+	public DocumentController(Panel contentPanel, JPanel jPanel, JFXPanel jfxPanel) {
 		super();
 		this.contentPanel = contentPanel;
+		this.jPanel = jPanel;
+		this.jfxPanel = jfxPanel;
 	}
 
 	@FXML
 	private void initialize() {
-		TranslateTransition tt = new TranslateTransition(new Duration(3000), anchorPane);
-
-	
+		System.out.println("document controller initialized");
 		
+
+		this.jPanel.addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentResized(ComponentEvent e) {
+				System.out.println("document jpanel update resized");
+				jPanel.setBounds(0, 0, contentPanel.getWidth(), contentPanel.getHeight());
+				jfxPanel.setBounds(0, 0, contentPanel.getWidth(), contentPanel.getHeight());
+				
+				StackPane rootRef = (StackPane) root.getParent();
+				
+				System.out.println(" root ref = null" + rootRef==null);
+
+				if (rootRef != null) {
+					rootRef.setPrefSize(contentPanel.getWidth(), contentPanel.getHeight());
+
+					// Aplica o efeito de tremor
+					// new Animations().shake(root);
+				}
+
+				if (rootRef != null) {
+					rootRef.setPrefSize(contentPanel.getWidth(), contentPanel.getHeight());
+				}
+			}
+		});
+
 	}
 
 }

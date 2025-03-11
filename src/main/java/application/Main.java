@@ -14,6 +14,8 @@ import javax.swing.Timer;
 
 import javax.swing.JPanel;
 
+import controller.DocumentController;
+import controller.LoginController;
 import controller.SideBarController;
 import javafx.embed.swing.JFXPanel;
 import javafx.fxml.FXMLLoader;
@@ -38,8 +40,10 @@ public class Main {
 		Panel contentPanel = new Panel();
 		// contentPanel.setBackground(Color.ORANGE);
 		contentPanel.setBounds(50, (INITIAL_HEIGHT - 400), INITIAL_WIDTH - 200, INITIAL_HEIGHT - 100);
-		contentPanel.setVisible(false);
+		contentPanel.setVisible(true);
 		contentPanel.setFocusable(false);
+		
+		
 
 		frame.add(contentPanel);
 
@@ -57,7 +61,7 @@ public class Main {
 
 		frame.add(mapPanel);
 
-		sideBarPanel.add(loadInitialJavaFx(frame, sideBarPanel, contentPanel));
+		sideBarPanel.add(loadSideBar(frame, sideBarPanel, contentPanel));
 
 		// Definir tamanho da janela
 		frame.setSize(INITIAL_WIDTH, INITIAL_HEIGHT);
@@ -86,6 +90,8 @@ public class Main {
 				updatePanels(frame, mapPanel, sideBarPanel, browser, contentPanel);
 			}
 		});
+		
+		loadDocument (contentPanel);
 
 	}
 
@@ -107,7 +113,7 @@ public class Main {
 		contentPanel.setBounds(50, yContent, frame.getWidth() - 200, frame.getHeight() - 100);
 	}
 
-	private static JPanel loadInitialJavaFx(Frame frame, Panel sideBarPanel, Panel contentPanel) {
+	private static JPanel loadSideBar(Frame frame, Panel sideBarPanel, Panel contentPanel) {
 		// Criar um JFXPanel para embutir o JavaFX dentro de AWT
 		JFXPanel jfxPanel = new JFXPanel();
 		jfxPanel.setBounds(100, 100, 50, 50); // Ajuste conforme necessário
@@ -151,6 +157,102 @@ public class Main {
 		Scene scene = new Scene(root);
 		jfxPanel.setScene(scene);
 		return jPanel;
+	}
+	
+	private static void loadLogin (Panel contentPanel){
+		// Criar um JFXPanel para embutir o JavaFX dentro de AWT
+				JFXPanel jfxPanel = new JFXPanel();
+				jfxPanel.setBounds(100, 100, 50, 50); // Ajuste conforme necessário
+
+				StackPane root = new StackPane();
+
+				// Carregar o arquivo FXML
+				URL fxmlPath = null;
+				try {
+					fxmlPath = Main.class.getClass().getResource("/fxml/Login.fxml");
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+
+				FXMLLoader loader = new FXMLLoader(fxmlPath);
+
+				// Passar o controlador com os parâmetros para o FXMLLoader
+				LoginController controller = new LoginController(contentPanel);
+				loader.setController(controller);
+
+				try {
+					root = loader.load();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+
+				// O JPanel do swing gerencia melhor o jfxPanel
+				JPanel jPanel = new JPanel();
+				jPanel.setBounds(100, 100, 50, 50);
+				jPanel.revalidate();
+
+				jPanel.revalidate();
+				jPanel.repaint();
+
+				jPanel.add(jfxPanel);
+				
+				jfxPanel.revalidate();
+				jfxPanel.repaint();
+
+				// Configurar a cena e o palco
+				Scene scene = new Scene(root);
+				jfxPanel.setScene(scene);
+				contentPanel.add(jPanel);
+	}
+	
+	private static void loadDocument (Panel contentPanel){
+		// Criar um JFXPanel para embutir o JavaFX dentro de AWT
+				JFXPanel jfxPanel = new JFXPanel();
+				jfxPanel.setBounds(0, 0, contentPanel.getWidth(), contentPanel.getHeight()); // Ajuste conforme necessário
+				
+				// O JPanel do swing gerencia melhor o jfxPanel
+				JPanel jPanel = new JPanel();
+				jPanel.setBounds(0, 0, contentPanel.getWidth(), contentPanel.getHeight());
+				jPanel.revalidate();
+
+				StackPane root = new StackPane();
+
+				// Carregar o arquivo FXML
+				URL fxmlPath = null;
+				try {
+					fxmlPath = Main.class.getClass().getResource("/fxml/Document.fxml");
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+
+				FXMLLoader loader = new FXMLLoader(fxmlPath);
+
+				// Passar o controlador com os parâmetros para o FXMLLoader
+				DocumentController controller = new DocumentController(contentPanel, jPanel, jfxPanel);
+				loader.setController(controller);
+
+				try {
+					root = loader.load();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+
+
+				jPanel.revalidate();
+				jPanel.repaint();
+
+				jPanel.add(jfxPanel);
+				
+				jfxPanel.revalidate();
+				jfxPanel.repaint();
+				
+				
+
+				// Configurar a cena e o palco
+				Scene scene = new Scene(root);
+				jfxPanel.setScene(scene);
+				
+				contentPanel.add(jPanel);
 	}
 	
 
