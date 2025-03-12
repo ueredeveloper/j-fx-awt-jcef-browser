@@ -2,6 +2,7 @@ package application.controller;
 
 import javax.swing.JPanel;
 
+import application.model.Interferencia;
 import application.ui.Controller;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -37,5 +38,11 @@ public class LoginController implements Controller {
 		String password = passwordField.getText();
 		System.out.println("Tentativa de login com senha: " + password);
 		// Adicione aqui a lógica de autenticação
+	}
+
+	@Override
+	public void updateCoordinates(Interferencia interference) {
+		// TODO Auto-generated method stub
+		
 	}
 }

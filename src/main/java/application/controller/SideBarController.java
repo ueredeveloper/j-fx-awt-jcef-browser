@@ -8,6 +8,8 @@ import javax.swing.JPanel;
 
 import com.jfoenix.controls.JFXButton;
 
+import application.model.Interferencia;
+import application.ui.BrowserPanel;
 import application.ui.Controller;
 import application.ui.PanelLoader;
 import application.utils.Animations;
@@ -34,10 +36,12 @@ public class SideBarController implements Controller {
 	private JFXButton btnConfig;
 
 	Panel contentPanel;
+	BrowserPanel browser;
 	
-	public SideBarController(Panel contentPanel) {
+	public SideBarController(Panel contentPanel, BrowserPanel browser) {
 		super();
 		this.contentPanel = contentPanel;
+		this.browser = browser;
 	}
 
 	@FXML
@@ -46,19 +50,35 @@ public class SideBarController implements Controller {
 			
 			contentPanel.setVisible(!contentPanel.isVisible());
 			
-			if (contentPanel.isVisible()) {
-				Controller documentController = new DocumentController();
-				JPanel panel = PanelLoader.LoadFXML(contentPanel, "Document.fxml", documentController);
-
-				contentPanel.add(panel, BorderLayout.CENTER);
-			} else {
-				System.out.println("conteúdo não visível");
-			}
-			
-			
 			
 			
 		});
+		
+		btnDocument.setOnAction(e -> {
+		    contentPanel.setVisible(!contentPanel.isVisible());
+
+		    if (contentPanel.isVisible()) {
+		        boolean hasPanel = false;
+
+		        for (java.awt.Component component : contentPanel.getComponents()) {
+		            if (component instanceof JPanel) {
+		                hasPanel = true;
+		                break;
+		            }
+		        }
+
+		        if (!hasPanel) {
+		            Controller documentController = new DocumentController(browser);
+		            browser.setDocumentController(documentController);
+
+		            JPanel panel = PanelLoader.LoadFXML(contentPanel, "Document.fxml", documentController);
+		            contentPanel.add(panel, BorderLayout.CENTER);
+		        }
+		    } else {
+		        System.out.println("conteúdo não visível");
+		    }
+		});
+
 
 	}
 
@@ -77,63 +97,12 @@ public class SideBarController implements Controller {
 
 	AtomicReference<AnchorPane> rootRef = new AtomicReference<>();
 
-	/*
-	 * private void loadDocumentView(Panel contentPanel) {
-	 * 
-	 * // Verifica se já existe um JPanel no contentPanel for (Component comp :
-	 * contentPanel.getComponents()) { if (comp instanceof JPanel) {
-	 * System.out.println("JFXPanel já foi adicionado.");
-	 * 
-	 * // Não vai recriar o componente, apenas fazê-lo tremer. AnchorPane root =
-	 * rootRef.get();
-	 * 
-	 * System.out.println("apenas tremer");
-	 * root.setPrefSize(contentPanel.getWidth(), contentPanel.getHeight());
-	 * 
-	 * // Aplica o efeito de tremor //new Animations().shake(root);
-	 * 
-	 * return; // Evita adicionar um novo JFXPanel } }
-	 * 
-	 * JPanel jPanel = new JPanel(); jPanel.setBounds(0, 0, contentPanel.getWidth(),
-	 * contentPanel.getHeight()); jPanel.revalidate(); jPanel.repaint();
-	 * 
-	 * JFXPanel jfxPanel = new JFXPanel(); jfxPanel.setBounds(0, 0,
-	 * contentPanel.getWidth(), contentPanel.getHeight()); jfxPanel.revalidate();
-	 * jfxPanel.repaint();
-	 * 
-	 * URL fxmlPath = Main.class.getClass().getResource("/fxml/Document.fxml");
-	 * FXMLLoader loader = new FXMLLoader(fxmlPath);
-	 * 
-	 * DocumentController controller = new DocumentController(contentPanel);
-	 * loader.setController(controller);
-	 * 
-	 * try { rootRef.set(loader.load()); } catch (IOException e1) {
-	 * e1.printStackTrace(); }
-	 * 
-	 * Scene scene = new Scene(rootRef.get()); jfxPanel.setScene(scene);
-	 * 
-	 * jPanel.add(jfxPanel); contentPanel.add(jPanel);
-	 * 
-	 * jPanel.addComponentListener(new ComponentAdapter() {
-	 * 
-	 * @Override public void componentResized(ComponentEvent e) {
-	 * System.out.println("map panel update resized"); jPanel.setBounds(0, 0,
-	 * contentPanel.getWidth(), contentPanel.getHeight()); jfxPanel.setBounds(0, 0,
-	 * contentPanel.getWidth(), contentPanel.getHeight());
-	 * 
-	 * AnchorPane root = rootRef.get();
-	 * 
-	 * if (root != null) { root.setPrefSize(contentPanel.getWidth(),
-	 * contentPanel.getHeight());
-	 * 
-	 * // Aplica o efeito de tremor //new Animations().shake(root); }
-	 * 
-	 * if (root != null) { root.setPrefSize(contentPanel.getWidth(),
-	 * contentPanel.getHeight()); } } });
-	 * 
-	 * contentPanel.revalidate(); contentPanel.repaint();
-	 * 
-	 * }
-	 */
+	@Override
+	public void updateCoordinates(Interferencia interference) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 
 }

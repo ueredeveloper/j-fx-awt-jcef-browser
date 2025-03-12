@@ -37,26 +37,6 @@ public class Main {
 
 			final int INITIAL_WIDTH = 1920; // Largura inicial
 			final int INITIAL_HEIGHT = 1080; // Altura inicial
-		
-
-			/* CONTEÚDO SOBRE O MAPA. 
-			 * Começa com um awt panel, depois um JPanel Swing, mediando a inicialização de um JFXPanel para o 
-			 * conteúdo Javafx.*/
-			Panel contentPanel = new Panel();
-			contentPanel.setBounds(50, 0, INITIAL_WIDTH - 200, INITIAL_HEIGHT - 140);
-			contentPanel.setLayout(null);
-			contentPanel.setVisible(false);
-			
-			//Controller documentController = new DocumentController();
-			//JPanel panel = PanelLoader.LoadFXML(contentPanel, "Document.fxml", documentController);
-			
-			//contentPanel.add(panel, BorderLayout.CENTER);	
-			
-			Controller sideBarController = new SideBarController(contentPanel);
-			JPanel sideBarPanel = SideBarPanelLoader.LoadFXML(sideBarController, INITIAL_WIDTH, INITIAL_HEIGHT);
-			// Adiciona primerio o side bar e o conteúdo para sobrescrever o mapa		
-			frame.add(sideBarPanel);
-			frame.add(contentPanel);
 			
 
 			// MAPA
@@ -68,6 +48,28 @@ public class Main {
 			BrowserPanel browser = new BrowserPanel();
 			browser.setBounds(0, 40, mapPanel.getWidth(), mapPanel.getHeight() - 40);
 			mapPanel.add(browser);
+		
+
+			/* CONTEÚDO SOBRE O MAPA. 
+			 * Começa com um awt panel, depois um JPanel Swing, mediando a inicialização de um JFXPanel para o 
+			 * conteúdo Javafx.*/
+			Panel contentPanel = new Panel();
+			contentPanel.setBounds(50, 0, INITIAL_WIDTH - 200, INITIAL_HEIGHT - 140);
+			contentPanel.setLayout(null);
+			contentPanel.setVisible(false);
+			
+			
+			// Teste de inicialização com a tela de documento aberta
+			//Controller documentController = new DocumentController();
+			//JPanel panel = PanelLoader.LoadFXML(contentPanel, "Document.fxml", documentController);
+			//contentPanel.add(panel, BorderLayout.CENTER);	
+			
+			Controller sideBarController = new SideBarController(contentPanel, browser);
+			JPanel sideBarPanel = SideBarPanelLoader.LoadFXML(sideBarController, INITIAL_WIDTH, INITIAL_HEIGHT);
+			// Adiciona primerio o side bar e o conteúdo para sobrescrever o mapa		
+			
+			frame.add(sideBarPanel);
+			frame.add(contentPanel);
 			frame.add(mapPanel);
 
 			// Definir tamanho da janela
@@ -173,59 +175,6 @@ public class Main {
 		contentPanel.add(jPanel);
 	}
 
-	 private static JPanel loadDocument(Panel contentPanel) {
-	       
-	        JPanel jPanel = new JPanel();
-	        jPanel.setBounds(0, 0, contentPanel.getWidth(), contentPanel.getHeight());
-	        jPanel.setLayout(new BorderLayout());
-	   
-	        JFXPanel jfxPanel = new JFXPanel();
-	        jfxPanel.setBounds(0, 0, contentPanel.getWidth(), contentPanel.getHeight());
-	        jPanel.add(jfxPanel, BorderLayout.CENTER);
 	
-	        // Redimensionamento do Jpanel
-	        contentPanel.addComponentListener(new ComponentAdapter() {
-	            @Override
-	            public void componentResized(ComponentEvent e) {
-	            	System.out.println("content resized" + contentPanel.getWidth());
-	            	jPanel.setBounds(0, 0, contentPanel.getWidth(), contentPanel.getHeight());
-	            	jPanel.revalidate();
-	            	jPanel.repaint();
-	            }
-	        });
-	     
-	        // Redimensionamento do JFXPanel
-	        jPanel.addComponentListener(new ComponentAdapter() {
-	            @Override
-	            public void componentResized(ComponentEvent e) {
-	                jfxPanel.setBounds(0, 0, jPanel.getWidth(), jPanel.getHeight());
-	                jfxPanel.revalidate();
-	                jfxPanel.repaint();
-	            }
-	        });
-
-	        DocumentController controller = new DocumentController();
-	        Platform.runLater(() -> {
-	            try {
-	                URL fxmlPath = Main.class.getResource("/fxml/Document.fxml");
-	                if (fxmlPath == null) {
-	                    throw new IOException("FXML file not found");
-	                }
-
-	                FXMLLoader loader = new FXMLLoader(fxmlPath);
-	                loader.setController(controller);
-	                StackPane root = loader.load();
-	                Scene scene = new Scene(root, 800, 600);
-	                jfxPanel.setScene(scene);
-	                
-	            } catch (IOException e) {
-	                e.printStackTrace();
-	            }
-	        });
-
-	        jPanel.revalidate();
-	        jPanel.repaint();
-	        return jPanel;
-	    }
 
 }

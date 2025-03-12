@@ -10,7 +10,16 @@ import org.cef.CefApp;
 import org.cef.CefClient;
 import org.cef.CefSettings;
 import org.cef.browser.CefBrowser;
+import org.cef.browser.CefFrame;
+import org.cef.browser.CefMessageRouter;
+import org.cef.callback.CefQueryCallback;
+import org.cef.handler.CefMessageRouterHandlerAdapter;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+
+import application.controller.DocumentController;
+import application.model.Interferencia;
 import application.service.MyHttpServer;
 import me.friwi.jcefmaven.CefAppBuilder;
 import me.friwi.jcefmaven.MavenCefAppHandlerAdapter;
@@ -20,12 +29,23 @@ public class BrowserPanel extends JPanel {
 	private CefApp cefApp_;
 	private CefClient client_;
 	private CefBrowser browser_;
+	
+	private Controller documentController;
 
 	public BrowserPanel() {
 		setLayout(new BorderLayout());
 		setFocusable(false);
 		initializeJCEF();
 	}
+	
+	public Controller getDocumentController() {
+		return documentController;
+	}
+
+	public void setDocumentController(Controller documentController) {
+		this.documentController = documentController;
+	}
+
 
 	private void initializeJCEF() {
 		CefAppBuilder builder = new CefAppBuilder();
@@ -75,6 +95,11 @@ public class BrowserPanel extends JPanel {
 			e.printStackTrace();
 			return;
 		}
+		
+		// (3) Create a simple message router to receive messages from CEF.
+		CefMessageRouter msgRouter = CefMessageRouter.create();
+		msgRouter.addHandler(new MessageRouterHandler(), true);
+		browser_.getClient().addMessageRouter(msgRouter);
 
 		// Make sure the UI updates happen on the Event Dispatch Thread (EDT)
 		SwingUtilities.invokeLater(() -> {
@@ -100,6 +125,23 @@ public class BrowserPanel extends JPanel {
 			repaint();
 
 		}
+	}
+
+	class MessageRouterHandler extends CefMessageRouterHandlerAdapter {
+
+		@Override
+		public boolean onQuery(CefBrowser browser, CefFrame frame, // <-- Add this parameter
+				long query_id, String request, boolean persistent, CefQueryCallback callback) {
+
+			Interferencia interference = new Gson().fromJson(request, Interferencia.class);
+
+		    documentController.updateCoordinates(interference);
+
+			System.out.println("Received request: " + request);
+			callback.success("Response from Java");
+			return true;
+		}
+
 	}
 
 }

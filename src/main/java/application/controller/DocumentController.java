@@ -1,8 +1,11 @@
 package application.controller;
 
+import com.google.gson.JsonObject;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 
+import application.model.Interferencia;
+import application.ui.BrowserPanel;
 import application.ui.Controller;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -77,6 +80,14 @@ public class DocumentController implements Controller {
 
 	@FXML
 	private Button btnViewDocument;
+	
+	BrowserPanel browser;
+
+
+	public DocumentController(BrowserPanel browser) {
+		super();
+		this.browser = browser;
+	}
 
 	@FXML
 	private void initialize() {
@@ -86,5 +97,14 @@ public class DocumentController implements Controller {
 		});
 
 	}
+
+	@Override
+	public void updateCoordinates(Interferencia interference) {
+		tfLatitude.setText(interference.getLatitude());
+		tfLongitude.setText(interference.getLongitude());
+		
+	}
+
+
 
 }
