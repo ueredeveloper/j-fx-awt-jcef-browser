@@ -14,7 +14,7 @@
             <VBox spacing="20">
                <children>
                   <TextField fx:id="passwordField" promptText="Senha" styleClass="input-field" />
-                  <Button fx:id="loginButton" onAction="#handleLogin" styleClass="btn" text="Entrar" />
+                  <Button fx:id="loginButton" styleClass="btn" text="Entrar" />
                </children>
             </VBox>
          </children>

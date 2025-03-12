@@ -65,12 +65,19 @@
     -fx-pref-width: 120;
     -fx-background-radius: 25;
     -fx-cursor: hand;
-    -fx-padding: 10;
+    -fx-padding: 5;
 }
 
 .btn:hover {
     -fx-background-color: linear-gradient(to right, derive(-fx-primary-color, 20%), derive(-fx-secondary-color, 20%));
     -fx-effect: dropshadow(gaussian, rgba(0, 71, 171, 0.4), 15, 0, 0, 5);
+}
+
+/* Efeito ao clicar nos botões padrão (.btn) */
+.btn:pressed {
+    -fx-scale-x: 1.2; /* Aumenta 10% no eixo X */
+    -fx-scale-y: 1.2; /* Aumenta 10% no eixo Y */
+    -fx-background-color: derive(-fx-primary-color, 20%); /* Leve mudança de cor para feedback */
 }
 
 /* Estilo do botão de edição */
@@ -81,12 +88,18 @@
     -fx-pref-width: 120;
     -fx-background-radius: 25;
     -fx-cursor: hand;
-    -fx-padding: 10;
+    -fx-padding: 5;
 }
 
 .btn-edit:hover {
     -fx-background-color: derive(-fx-edit-color, 20%);
     -fx-effect: dropshadow(gaussian, rgba(40, 167, 69, 0.4), 15, 0, 0, 5);
+}
+/* Efeito ao clicar nos botões padrão (.btn) */
+.btn-edit:pressed {
+    -fx-scale-x: 1.2; /* Aumenta 10% no eixo X */
+    -fx-scale-y: 1.2; /* Aumenta 10% no eixo Y */
+    -fx-background-color: derive(-fx-primary-color, 20%); /* Leve mudança de cor para feedback */
 }
 
 /* Estilo do botão de deleção */
@@ -97,7 +110,13 @@
     -fx-pref-width: 120;
     -fx-background-radius: 25;
     -fx-cursor: hand;
-    -fx-padding: 10;
+    -fx-padding: 5;
+}
+/* Efeito ao clicar nos botões padrão (.btn) */
+.btn-delete:pressed {
+    -fx-scale-x: 1.2; /* Aumenta 10% no eixo X */
+    -fx-scale-y: 1.2; /* Aumenta 10% no eixo Y */
+    -fx-background-color: derive(-fx-primary-color, 20%); /* Leve mudança de cor para feedback */
 }
 
 .btn-delete:hover {

@@ -1,5 +1,6 @@
 # Ignorar o bundle JCEF e a biblioteca
 /jcef_bundle/
+jcef_bundle/
 /jcef_lib/
 *.dylib
 *.dll

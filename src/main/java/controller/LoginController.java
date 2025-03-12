@@ -2,6 +2,8 @@ package controller;
 
 import java.awt.Panel;
 
+import javax.swing.JPanel;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -22,12 +24,8 @@ public class LoginController {
 	@FXML
 	private Button loginButton;
 
-	Panel contentPanel;
+	JPanel contentPanel;
 
-	public LoginController(Panel contentPanel) {
-		super();
-		this.contentPanel = contentPanel;
-	}
 
 	@FXML
 	private void initialize() {

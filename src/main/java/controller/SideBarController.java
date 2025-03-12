@@ -37,11 +37,7 @@ public class SideBarController {
 
 	Panel contentPanel;
 
-	public SideBarController(Panel contentPanel) {
-		super();
 
-		this.contentPanel = contentPanel;
-	}
 
 	@FXML
 	private void initialize() {

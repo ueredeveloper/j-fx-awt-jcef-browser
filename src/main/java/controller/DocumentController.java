@@ -87,41 +87,11 @@ public class DocumentController {
 	JPanel jPanel;
 	JFXPanel jfxPanel;
 
-	public DocumentController(Panel contentPanel, JPanel jPanel, JFXPanel jfxPanel) {
-		super();
-		this.contentPanel = contentPanel;
-		this.jPanel = jPanel;
-		this.jfxPanel = jfxPanel;
-	}
+
 
 	@FXML
 	private void initialize() {
-		System.out.println("document controller initialized");
 		
-
-		this.jPanel.addComponentListener(new ComponentAdapter() {
-			@Override
-			public void componentResized(ComponentEvent e) {
-				System.out.println("document jpanel update resized");
-				jPanel.setBounds(0, 0, contentPanel.getWidth(), contentPanel.getHeight());
-				jfxPanel.setBounds(0, 0, contentPanel.getWidth(), contentPanel.getHeight());
-				
-				StackPane rootRef = (StackPane) root.getParent();
-				
-				System.out.println(" root ref = null" + rootRef==null);
-
-				if (rootRef != null) {
-					rootRef.setPrefSize(contentPanel.getWidth(), contentPanel.getHeight());
-
-					// Aplica o efeito de tremor
-					// new Animations().shake(root);
-				}
-
-				if (rootRef != null) {
-					rootRef.setPrefSize(contentPanel.getWidth(), contentPanel.getHeight());
-				}
-			}
-		});
 
 	}
 
