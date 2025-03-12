@@ -1,4 +1,4 @@
-package utils;
+package application.utils;
 
 import java.awt.Panel;
 import java.awt.event.ActionEvent;

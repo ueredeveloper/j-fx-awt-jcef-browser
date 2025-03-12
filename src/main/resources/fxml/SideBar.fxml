@@ -1,16 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane fx:id="stackPane" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="100.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane fx:id="stackPane" prefHeight="1080.0" prefWidth="100.0" stylesheets="@css/sidebar.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <VBox fx:id="vBox" maxWidth="100.0" prefHeight="400.0" prefWidth="100.0" StackPane.alignment="CENTER_RIGHT">
+      <VBox fx:id="vBox" alignment="CENTER" maxWidth="100.0" prefWidth="100.0" spacing="20" styleClass="sidebar" StackPane.alignment="CENTER_RIGHT">
          <children>
-            <Button fx:id="btnDocument" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="documento" />
-            <Button fx:id="btnInterference" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="interferência" />
+            <!-- Criação de Interferência de Água -->
+            <JFXButton fx:id="btnMap" prefHeight="50.0" prefWidth="50.0" styleClass="sidebar-btn" text="MAPA">
+               <graphic>
+                  <FontAwesomeIconView fill="white" glyphName="GLOBE" size="30" />
+               </graphic>
+               <tooltip>
+                  <Tooltip text="Abertura do mapa" />
+               </tooltip>
+            </JFXButton>
+
+            <!-- Criação de Documento -->
+            <JFXButton fx:id="btnDocument" prefHeight="50.0" prefWidth="50.0" styleClass="sidebar-btn" text="DOCUMENTO">
+               <graphic>
+                  <FontAwesomeIconView fill="white" glyphName="FILE_TEXT" size="30" />
+               </graphic>
+               <tooltip>
+                  <Tooltip text="Cadastro e Criação de Documentos" />
+               </tooltip>
+            </JFXButton>
+
+            <!-- Criação de Processo -->
+            <JFXButton fx:id="btnConfig" prefHeight="50.0" prefWidth="50.0" styleClass="sidebar-btn" text="CONFIGURAÇÕES">
+               <graphic>
+                  <FontAwesomeIconView fill="white" glyphName="COGS" size="30" />
+               </graphic>
+               <tooltip>
+                  <Tooltip text="Configurações" />
+               </tooltip>
+            </JFXButton>
          </children>
+         <padding>
+            <Insets bottom="20" left="0" right="0" top="20" />
+         </padding>
       </VBox>
    </children>
 </StackPane>

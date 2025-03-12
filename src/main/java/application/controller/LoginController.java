@@ -1,16 +1,15 @@
-package controller;
-
-import java.awt.Panel;
+package application.controller;
 
 import javax.swing.JPanel;
 
+import application.ui.Controller;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
-public class LoginController {
+public class LoginController implements Controller {
 
 	@FXML
 	private StackPane root;
@@ -26,10 +25,9 @@ public class LoginController {
 
 	JPanel contentPanel;
 
-
 	@FXML
 	private void initialize() {
-		
+
 		System.out.println("logint controller initialize");
 
 	}

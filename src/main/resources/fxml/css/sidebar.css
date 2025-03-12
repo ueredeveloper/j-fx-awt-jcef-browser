@@ -1,0 +1,57 @@
+/* Variáveis de cores */
+.root {
+    -fx-primary-color: #0047AB;    /* Azul escuro */
+    -fx-secondary-color: #00C4FF;  /* Azul claro */
+    -fx-background-overlay: rgba(0, 71, 171, 0.9);
+}
+
+/* Estilo do StackPane de fundo */
+#stackPane {
+    -fx-background-color: transparent;
+}
+
+/* Estilo da barra lateral */
+.sidebar {
+    -fx-background-color: -fx-background-overlay;
+    -fx-background-radius: 0 0 0 15;
+    -fx-border-radius: 0 0 0 15;
+    -fx-border-color: rgba(255, 255, 255, 0.2);
+    -fx-border-width: 0 0 0 2;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 15, 0, -5, 0);
+}
+
+/* Estilo dos botões da barra lateral */
+.sidebar-btn {
+    -fx-background-color: transparent;
+    -fx-pref-width: 50;
+    -fx-pref-height: 50;
+    -fx-background-radius: 25;
+    -fx-cursor: hand;
+    -fx-alignment: center;
+    -jfx-button-type: RAISED; /* Estilo elevado do Jfoenix */
+    -fx-effect: dropshadow(gaussian, rgba(0, 71, 171, 0.2), 10, 0, 0, 2);
+}
+
+/* Efeito hover nos botões */
+.sidebar-btn:hover {
+    -fx-background-color: -fx-secondary-color;
+    -fx-effect: dropshadow(gaussian, rgba(0, 71, 171, 0.4), 15, 0, 0, 5);
+}
+
+/* Efeito pressed nos botões */
+.sidebar-btn:pressed {
+    -fx-scale-x: 1.2;
+    -fx-scale-y: 1.2;
+    -fx-background-color: derive(-fx-primary-color, 20%);
+    -fx-effect: dropshadow(gaussian, rgba(0, 71, 171, 0.6), 5, 0, 0, 1);
+}
+
+/* Estilo do tooltip */
+.tooltip {
+    -fx-background-color: rgba(0, 71, 171, 0.9);
+    -fx-text-fill: white;
+    -fx-font-size: 12;
+    -fx-background-radius: 5;
+    -fx-padding: 5;
+    -fx-font-family: "Roboto Regular";
+}

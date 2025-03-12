@@ -1,6 +1,7 @@
 package application;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Frame;
 import java.awt.Panel;
 import java.awt.event.ComponentAdapter;
@@ -13,13 +14,18 @@ import java.net.URL;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-import controller.DocumentController;
-import controller.SideBarController;
+import application.controller.DocumentController;
+import application.controller.SideBarController;
+import application.ui.BrowserPanel;
+import application.ui.Controller;
+import application.ui.PanelLoader;
+import application.ui.SideBarPanelLoader;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
+
 
 public class Main {
 	public static void main(String[] args) {
@@ -32,14 +38,28 @@ public class Main {
 			final int INITIAL_WIDTH = 1920; // Largura inicial
 			final int INITIAL_HEIGHT = 1080; // Altura inicial
 		
-			JPanel sideBarPanel = loadSideBar(INITIAL_WIDTH, INITIAL_HEIGHT);
 
+			/* CONTEÚDO SOBRE O MAPA. 
+			 * Começa com um awt panel, depois um JPanel Swing, mediando a inicialização de um JFXPanel para o 
+			 * conteúdo Javafx.*/
+			Panel contentPanel = new Panel();
+			contentPanel.setBounds(50, 0, INITIAL_WIDTH - 200, INITIAL_HEIGHT - 140);
+			contentPanel.setLayout(null);
+			contentPanel.setVisible(false);
+			
+			//Controller documentController = new DocumentController();
+			//JPanel panel = PanelLoader.LoadFXML(contentPanel, "Document.fxml", documentController);
+			
+			//contentPanel.add(panel, BorderLayout.CENTER);	
+			
+			Controller sideBarController = new SideBarController(contentPanel);
+			JPanel sideBarPanel = SideBarPanelLoader.LoadFXML(sideBarController, INITIAL_WIDTH, INITIAL_HEIGHT);
+			// Adiciona primerio o side bar e o conteúdo para sobrescrever o mapa		
 			frame.add(sideBarPanel);
-
-			JPanel contentPanel = loadDocument(INITIAL_WIDTH, INITIAL_HEIGHT);
 			frame.add(contentPanel);
+			
 
-			// Criar painel azul de fundo
+			// MAPA
 			Panel mapPanel = new Panel();
 			mapPanel.setBounds(0, 0, INITIAL_WIDTH, INITIAL_HEIGHT);
 			mapPanel.setLayout(null);
@@ -67,6 +87,7 @@ public class Main {
 				public void componentResized(ComponentEvent e) {
 					
 					updatePanels(frame, mapPanel, sideBarPanel, browser, contentPanel);
+				
 				}
 			});
 
@@ -76,15 +97,18 @@ public class Main {
 				public void componentResized(ComponentEvent e) {
 					
 					updatePanels(frame, mapPanel, sideBarPanel, browser, contentPanel);
+				
 				}
 			});
+			
+			
 
 		});
-
+		
 	}
 
 	private static void updatePanels(Frame frame, Panel mapPanel, JPanel sideBarPanel, BrowserPanel browser,
-			JPanel contentPanel) {
+			Panel contentPanel) {
 
 		int yBarSide = (frame.getHeight() - sideBarPanel.getHeight()) / 2;
 		int yContent = (frame.getHeight() - contentPanel.getHeight()) / 2;
@@ -96,62 +120,12 @@ public class Main {
 		browser.resizeBrowser(mapPanel.getWidth() - 8, mapPanel.getHeight() - 50);
 
 		// Atualizar o painel verde à direita
-		sideBarPanel.setBounds(frame.getWidth() - 140, yBarSide, 100, frame.getHeight() - 100);
+		sideBarPanel.setBounds(frame.getWidth() - 140, yBarSide, 100, frame.getHeight() - 140);
 
-		contentPanel.setBounds(50, yContent, frame.getWidth() - 200, frame.getHeight() - 100);
+		contentPanel.setBounds(50, yContent, frame.getWidth() - 200, frame.getHeight() - 140);
 	}
 
-	private static JPanel loadSideBar(int INITIAL_WIDTH, int INITIAL_HEIGHT) {
-
-		// Criar o JFXPanel para JavaFX
-		JFXPanel jfxPanel = new JFXPanel();
-		jfxPanel.setBounds(INITIAL_WIDTH - 140, (INITIAL_HEIGHT - 400) / 2, 100, INITIAL_HEIGHT - 100);// Ajuste
-					
-		// O JPanel do Swing gerencia o JFXPanel
-		JPanel jPanel = new JPanel();
-		jPanel.setBounds(INITIAL_WIDTH - 140, (INITIAL_HEIGHT - 400) / 2, 100, INITIAL_HEIGHT - 100);
-		jPanel.setLayout(new BorderLayout()); // Usar BorderLayout para o JFXPanel
-		jPanel.add(jfxPanel, BorderLayout.CENTER);
-
-		// Listener para redimensionamento do mapPanel
-		jfxPanel.addComponentListener(new ComponentAdapter() {
-			@Override
-			public void componentResized(ComponentEvent e) {
-				
-				jfxPanel.setBounds(0, 0, jPanel.getWidth(), jPanel.getHeight());
-				jfxPanel.revalidate();
-				jfxPanel.repaint();
-			}
-		});
-
-		Platform.runLater(() -> {
-			// Carregar o conteúdo JavaFX na thread correta
-
-			try {
-				// Carregar o arquivo FXML
-				URL fxmlPath = Main.class.getResource("/fxml/SideBar.fxml");
-				if (fxmlPath == null) {
-					throw new IOException("FXML file not found");
-				}
-
-				FXMLLoader loader = new FXMLLoader(fxmlPath);
-				SideBarController controller = new SideBarController();
-				loader.setController(controller);
-
-				StackPane root = loader.load();
-				jfxPanel.setScene(new javafx.scene.Scene(root));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		});
-
-		// Forçar revalidação do JPanel após adicionar o JFXPanel
-		jPanel.revalidate();
-		jPanel.repaint();
-
-		return jPanel;
-
-	}
+	
 
 	private static void loadLogin(Panel contentPanel) {
 		// Criar um JFXPanel para embutir o JavaFX dentro de AWT
@@ -199,56 +173,59 @@ public class Main {
 		contentPanel.add(jPanel);
 	}
 
-	private static JPanel loadDocument(int INITIAL_WIDTH, int INITIAL_HEIGHT) {
+	 private static JPanel loadDocument(Panel contentPanel) {
+	       
+	        JPanel jPanel = new JPanel();
+	        jPanel.setBounds(0, 0, contentPanel.getWidth(), contentPanel.getHeight());
+	        jPanel.setLayout(new BorderLayout());
+	   
+	        JFXPanel jfxPanel = new JFXPanel();
+	        jfxPanel.setBounds(0, 0, contentPanel.getWidth(), contentPanel.getHeight());
+	        jPanel.add(jfxPanel, BorderLayout.CENTER);
+	
+	        // Redimensionamento do Jpanel
+	        contentPanel.addComponentListener(new ComponentAdapter() {
+	            @Override
+	            public void componentResized(ComponentEvent e) {
+	            	System.out.println("content resized" + contentPanel.getWidth());
+	            	jPanel.setBounds(0, 0, contentPanel.getWidth(), contentPanel.getHeight());
+	            	jPanel.revalidate();
+	            	jPanel.repaint();
+	            }
+	        });
+	     
+	        // Redimensionamento do JFXPanel
+	        jPanel.addComponentListener(new ComponentAdapter() {
+	            @Override
+	            public void componentResized(ComponentEvent e) {
+	                jfxPanel.setBounds(0, 0, jPanel.getWidth(), jPanel.getHeight());
+	                jfxPanel.revalidate();
+	                jfxPanel.repaint();
+	            }
+	        });
 
-		// Criar o JFXPanel para JavaFX
-		JFXPanel jfxPanel = new JFXPanel();
-		jfxPanel.setBounds(100, 100, 50, 50); // Ajuste conforme necessário
+	        DocumentController controller = new DocumentController();
+	        Platform.runLater(() -> {
+	            try {
+	                URL fxmlPath = Main.class.getResource("/fxml/Document.fxml");
+	                if (fxmlPath == null) {
+	                    throw new IOException("FXML file not found");
+	                }
 
-		// O JPanel do Swing gerencia o JFXPanel
-		JPanel jPanel = new JPanel();
-		jPanel.setBounds(50, (INITIAL_HEIGHT - 400), INITIAL_WIDTH - 200, INITIAL_HEIGHT - 100);
-		jPanel.setLayout(new BorderLayout()); // Usar BorderLayout para o JFXPanel
-		jPanel.add(jfxPanel, BorderLayout.CENTER);
+	                FXMLLoader loader = new FXMLLoader(fxmlPath);
+	                loader.setController(controller);
+	                StackPane root = loader.load();
+	                Scene scene = new Scene(root, 800, 600);
+	                jfxPanel.setScene(scene);
+	                
+	            } catch (IOException e) {
+	                e.printStackTrace();
+	            }
+	        });
 
-		// Listener para redimensionamento do mapPanel
-		jfxPanel.addComponentListener(new ComponentAdapter() {
-			@Override
-			public void componentResized(ComponentEvent e) {
-				
-				jfxPanel.setBounds(0, 0, jPanel.getWidth(), jPanel.getHeight());
-				jfxPanel.revalidate();
-				jfxPanel.repaint();
-			}
-		});
-
-		Platform.runLater(() -> {
-			// Carregar o conteúdo JavaFX na thread correta
-
-			try {
-				// Carregar o arquivo FXML
-				URL fxmlPath = Main.class.getResource("/fxml/Document.fxml");
-				if (fxmlPath == null) {
-					throw new IOException("FXML file not found");
-				}
-
-				FXMLLoader loader = new FXMLLoader(fxmlPath);
-				DocumentController controller = new DocumentController();
-				loader.setController(controller);
-
-				StackPane root = loader.load();
-				jfxPanel.setScene(new javafx.scene.Scene(root));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		});
-
-		// Forçar revalidação do JPanel após adicionar o JFXPanel
-		jPanel.revalidate();
-		jPanel.repaint();
-
-		return jPanel;
-
-	}
+	        jPanel.revalidate();
+	        jPanel.repaint();
+	        return jPanel;
+	    }
 
 }

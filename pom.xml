@@ -40,6 +40,8 @@
 			<artifactId>fontawesomefx</artifactId>
 			<version>8.9</version> <!-- Use the latest version available -->
 		</dependency>
+		
+		
 
 
 	</dependencies>
