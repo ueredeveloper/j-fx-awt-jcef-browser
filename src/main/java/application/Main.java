@@ -1,7 +1,5 @@
 package application;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Frame;
 import java.awt.Panel;
 import java.awt.event.ComponentAdapter;
@@ -11,22 +9,17 @@ import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.net.URL;
 
-
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-import application.controller.DocumentController;
 import application.controller.SideBarController;
 import application.ui.BrowserPanel;
 import application.ui.Controller;
-import application.ui.PanelLoader;
 import application.ui.SideBarPanelLoader;
-import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
-
 
 public class Main {
 	public static void main(String[] args) {
@@ -39,7 +32,6 @@ public class Main {
 			final int INITIAL_WIDTH = 1920; // Largura inicial
 			final int INITIAL_HEIGHT = 1080; // Altura inicial
 			
-
 			// MAPA
 			Panel mapPanel = new Panel();
 			mapPanel.setBounds(0, 0, INITIAL_WIDTH, INITIAL_HEIGHT);
@@ -49,28 +41,27 @@ public class Main {
 			BrowserPanel browser = new BrowserPanel();
 			browser.setBounds(0, 40, mapPanel.getWidth(), mapPanel.getHeight() - 40);
 			mapPanel.add(browser);
-		
 
-			/* CONTEÚDO SOBRE O MAPA. 
-			 * Começa com um awt panel, depois um JPanel Swing, mediando a inicialização de um JFXPanel para o 
-			 * conteúdo Javafx.
-			 * */
+			/*
+			 * CONTEÚDO 
+			 * Começa com um awt panel, depois um JPanel Swing,
+			 * mediando a inicialização de um JFXPanel para o conteúdo Javafx.
+			 */
 			Panel contentPanel = new Panel();
 			contentPanel.setBounds(50, 0, INITIAL_WIDTH - 200, INITIAL_HEIGHT - 140);
 			contentPanel.setLayout(null);
 			contentPanel.setVisible(false);
-			
-			
+
 			// Teste de inicialização com a tela de documento aberta
-			//Controller documentController = new DocumentController();
-			//JPanel panel = PanelLoader.LoadFXML(contentPanel, "Document.fxml", documentController);
-			//contentPanel.add(panel, BorderLayout.CENTER);	
-			
-			
+			// Controller documentController = new DocumentController();
+			// JPanel panel = PanelLoader.LoadFXML(contentPanel, "Document.fxml",
+			// documentController);
+			// contentPanel.add(panel, BorderLayout.CENTER);
+
 			Controller sideBarController = new SideBarController(contentPanel, browser);
 			JPanel sideBarPanel = SideBarPanelLoader.LoadFXML(sideBarController, INITIAL_WIDTH, INITIAL_HEIGHT);
-			// Adiciona primerio o side bar e o conteúdo para sobrescrever o mapa		
-			
+			// Adiciona primerio o side bar e o conteúdo para sobrescrever o mapa
+
 			frame.add(sideBarPanel);
 			frame.add(contentPanel);
 			frame.add(mapPanel);
@@ -90,9 +81,9 @@ public class Main {
 			// Listener para redimensionamento do frame
 			frame.addComponentListener(new ComponentAdapter() {
 				public void componentResized(ComponentEvent e) {
-					
+
 					updatePanels(frame, mapPanel, sideBarPanel, browser, contentPanel);
-				
+
 				}
 			});
 
@@ -100,16 +91,14 @@ public class Main {
 			mapPanel.addComponentListener(new ComponentAdapter() {
 				@Override
 				public void componentResized(ComponentEvent e) {
-					
+
 					updatePanels(frame, mapPanel, sideBarPanel, browser, contentPanel);
-				
+
 				}
 			});
-			
-			
 
 		});
-		
+
 	}
 
 	private static void updatePanels(Frame frame, Panel mapPanel, JPanel sideBarPanel, BrowserPanel browser,
@@ -129,8 +118,6 @@ public class Main {
 
 		contentPanel.setBounds(50, yContent, frame.getWidth() - 200, frame.getHeight() - 140);
 	}
-
-	
 
 	private static void loadLogin(Panel contentPanel) {
 		// Criar um JFXPanel para embutir o JavaFX dentro de AWT
@@ -177,7 +164,5 @@ public class Main {
 		jfxPanel.setScene(scene);
 		contentPanel.add(jPanel);
 	}
-
-	
 
 }

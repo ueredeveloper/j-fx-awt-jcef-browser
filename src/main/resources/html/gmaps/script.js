@@ -1,4 +1,5 @@
 let map;
+let marker;
 
 function initMap() {
 	const myLatLng = { lat: -15.800341849307241, lng: -47.742635303776794 };
@@ -8,7 +9,7 @@ function initMap() {
 		mapTypeId: 'hybrid'
 	});
 
-	new google.maps.Marker({
+	marker = new google.maps.Marker({
 		position: myLatLng,
 		map,
 		title: "Hello World!",
@@ -39,6 +40,20 @@ function initMap() {
         onFailure: function(error_code, error_message) { console.error("Error sending coordinates:", error_message); }
     	});
 	}
+	
+	window.setInterference = function(lat, lng) {
+    console.log("Recebendo coordenadas:", lat, lng);
+    
+    if (map && lat && lng) {
+        const position = { lat: parseFloat(lat), lng: parseFloat(lng) };
+        marker.setPosition(position);
+        map.setCenter(position);
+        map.setZoom(15); // Ajuste o zoom se necessário
+    } else {
+        console.error("Mapa ou coordenadas inválidas.");
+    }
+};
+
 
 	
 window.initMap = initMap;

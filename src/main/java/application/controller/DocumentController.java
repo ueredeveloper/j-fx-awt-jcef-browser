@@ -1,5 +1,6 @@
 package application.controller;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
@@ -7,6 +8,8 @@ import com.jfoenix.controls.JFXTextField;
 import application.model.Interferencia;
 import application.ui.BrowserPanel;
 import application.ui.Controller;
+import application.ui.MapClickListener;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
@@ -88,12 +91,28 @@ public class DocumentController implements Controller {
 		super();
 		this.browser = browser;
 	}
+	
 
 	@FXML
 	private void initialize() {
+		
+		// Ouve o click no navegador e setar as coordenadas nos textfields
+		browser.setMapClickListener(interference -> {
+		    Platform.runLater(() -> {
+		    	updateCoordinates(interference);
+		    });
+		});
 
 		btnSave.setOnAction(event -> {
 			System.out.println("clicked save button");
+		});
+		
+		btnInterference.setOnAction(event->{
+			String latitude = tfLatitude.getText();
+			String longitude = tfLongitude.getText();
+			
+			browser.setInterference(latitude, longitude);
+			
 		});
 
 	}
@@ -104,7 +123,6 @@ public class DocumentController implements Controller {
 		tfLongitude.setText(interference.getLongitude());
 		
 	}
-
-
-
+	
+	
 }

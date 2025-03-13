@@ -16,9 +16,7 @@ import org.cef.callback.CefQueryCallback;
 import org.cef.handler.CefMessageRouterHandlerAdapter;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 
-import application.controller.DocumentController;
 import application.model.Interferencia;
 import application.service.MyHttpServer;
 import me.friwi.jcefmaven.CefAppBuilder;
@@ -29,23 +27,18 @@ public class BrowserPanel extends JPanel {
 	private CefApp cefApp_;
 	private CefClient client_;
 	private CefBrowser browser_;
-	
-	private Controller documentController;
+
+	private MapClickListener listener;
+
+	public void setMapClickListener(MapClickListener listener) {
+		this.listener = listener;
+	}
 
 	public BrowserPanel() {
 		setLayout(new BorderLayout());
 		setFocusable(false);
 		initializeJCEF();
 	}
-	
-	public Controller getDocumentController() {
-		return documentController;
-	}
-
-	public void setDocumentController(Controller documentController) {
-		this.documentController = documentController;
-	}
-
 
 	private void initializeJCEF() {
 		CefAppBuilder builder = new CefAppBuilder();
@@ -95,7 +88,7 @@ public class BrowserPanel extends JPanel {
 			e.printStackTrace();
 			return;
 		}
-		
+
 		// (3) Create a simple message router to receive messages from CEF.
 		CefMessageRouter msgRouter = CefMessageRouter.create();
 		msgRouter.addHandler(new MessageRouterHandler(), true);
@@ -130,18 +123,29 @@ public class BrowserPanel extends JPanel {
 	class MessageRouterHandler extends CefMessageRouterHandlerAdapter {
 
 		@Override
-		public boolean onQuery(CefBrowser browser, CefFrame frame, // <-- Add this parameter
-				long query_id, String request, boolean persistent, CefQueryCallback callback) {
+		public boolean onQuery(CefBrowser browser, CefFrame frame, long query_id, String request, boolean persistent,
+				CefQueryCallback callback) {
 
 			Interferencia interference = new Gson().fromJson(request, Interferencia.class);
 
-		    documentController.updateCoordinates(interference);
+			System.out.println(listener == null);
+			if (listener != null) {
+				listener.onMapClick(interference);
+			}
 
 			System.out.println("Received request: " + request);
 			callback.success("Response from Java");
 			return true;
 		}
+	}
 
+	public void setInterference(String latitude, String longitude) {
+		if (browser_ != null) {
+			String script = String.format("window.setInterference('%s', '%s');", latitude, longitude);
+			browser_.executeJavaScript(script, browser_.getURL(), 0);
+		} else {
+			System.err.println("❌ Browser não inicializado.");
+		}
 	}
 
 }

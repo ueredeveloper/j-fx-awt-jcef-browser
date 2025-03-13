@@ -69,7 +69,6 @@ public class SideBarController implements Controller {
 
 		        if (!hasPanel) {
 		            Controller documentController = new DocumentController(browser);
-		            browser.setDocumentController(documentController);
 
 		            JPanel panel = PanelLoader.LoadFXML(contentPanel, "Document.fxml", documentController);
 		            contentPanel.add(panel, BorderLayout.CENTER);
