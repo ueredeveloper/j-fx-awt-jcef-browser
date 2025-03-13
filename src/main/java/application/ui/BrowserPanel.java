@@ -54,7 +54,7 @@ public class BrowserPanel extends JPanel {
 			public void stateHasChanged(CefApp.CefAppState state) {
 
 				if (state == CefApp.CefAppState.TERMINATED) {
-					System.out.println("⚠️ JCEF terminated unexpectedly");
+					System.out.println("JCEF terminated unexpectedly");
 				}
 			}
 		});

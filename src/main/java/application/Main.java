@@ -53,7 +53,8 @@ public class Main {
 
 			/* CONTEÚDO SOBRE O MAPA. 
 			 * Começa com um awt panel, depois um JPanel Swing, mediando a inicialização de um JFXPanel para o 
-			 * conteúdo Javafx.*/
+			 * conteúdo Javafx.
+			 * */
 			Panel contentPanel = new Panel();
 			contentPanel.setBounds(50, 0, INITIAL_WIDTH - 200, INITIAL_HEIGHT - 140);
 			contentPanel.setLayout(null);
