@@ -65,6 +65,7 @@ public class Main {
 			//JPanel panel = PanelLoader.LoadFXML(contentPanel, "Document.fxml", documentController);
 			//contentPanel.add(panel, BorderLayout.CENTER);	
 			
+			
 			Controller sideBarController = new SideBarController(contentPanel, browser);
 			JPanel sideBarPanel = SideBarPanelLoader.LoadFXML(sideBarController, INITIAL_WIDTH, INITIAL_HEIGHT);
 			// Adiciona primerio o side bar e o conteúdo para sobrescrever o mapa		

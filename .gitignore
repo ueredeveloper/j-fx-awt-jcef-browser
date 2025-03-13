@@ -30,3 +30,4 @@ jcef-bundle/.*
 *.war
 *.ear
 *.zip
+"jcef-bundle/" 
